@@ -140,6 +140,10 @@ class MyWatchFace : CanvasWatchFaceService() {
         }
 
         private fun updateWatchHandStyle() {
+            /*
+            Paint the watch face based on the mode
+            Ambient or power mode
+            */
             if (ambient) {
                 hourPaint.color = Color.WHITE
                 minutePaint.color = Color.WHITE
