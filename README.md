@@ -1,7 +1,9 @@
 # Analog Watch Face - Wear OS
 This is an analog watch face made by Krushi Raj Tula.
 
-I recommend to go through the references I mentioned if you want to start/continue developement on top of this project.
+I recommend to go through the references I mentioned if you want to start/continue developement on top of this project. This project is written in Kotlin for Android. If you're familiar working with Java or Android development using Java then you can directky jump off, not much of new things are required for understanding this. 
+
+You can read docs about Kolin [here](https://kotlinlang.org/docs/kotlin-docs.pdf).
 
 References I used for building this are:
 1. [Create a watchface for Wear with Kotlin - Codelabs](https://codelabs.developers.google.com/codelabs/watchface-kotlin/index.html#0)
