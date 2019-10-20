@@ -1,7 +1,7 @@
 # Analog Watch Face - Wear OS
 This is an analog watch face made by Krushi Raj Tula.
 
-I recommend to go through the references I mentioned if you want to start/continue developement on top of this project. This project is written in Kotlin for Android. If you're familiar working with Java or Android development using Java then you can directky jump off, not much of new things are required for understanding this. 
+I recommend to go through the references I mentioned if you want to start/continue developement on top of this project. This project is written in Kotlin for Android. If you're familiar working with Java or Android development using Java then you can directky jump off, not much of new things are required for understanding this.
 
 You can read docs about Kolin [here](https://kotlinlang.org/docs/kotlin-docs.pdf).
 
@@ -32,6 +32,10 @@ Below is the screenshot directly taken from my Fossil Gen 5 Carlyle watch(round 
     # If you readily have access to adb command ignore the cd command
     # and execute the next two commands
     cd "C:\Users\<username>\AppData\Local\Android\Sdk\platform-tools"
+    ```
+    - To debug over bluetooth
+
+    ```bash
     adb forward tcp:4444 localabstract:/adb-hub
     adb connect 127.0.0.1:4444
     ```
@@ -40,4 +44,14 @@ Below is the screenshot directly taken from my Fossil Gen 5 Carlyle watch(round 
     Host: Connected
     Target: Connected
     ```
+
+    - To debug over WiFi
+
+    Go to developer settings in you watch and select `debug over WiFi` now you can see a local IP address of your watch, which resembles `192.168.*.*` use that IP address below. I'm using `192.168.1.100` for example purpose.
+
+    ```bash
+    adb connect 192.168.1.100
+    ```
+    Then select for the prompt in you watch.
+
 1. Now you can see your watch under devices list in Android studio
