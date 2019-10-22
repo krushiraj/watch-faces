@@ -6,8 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8a933c6-b1fe-4e2d-9df3-fb20678a6ff3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/krushi/minisheart/MyWatchFace.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/krushi/minisheart/MyWatchFace.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +18,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="192.168.9.104:5555" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="192.168.43.237:5555" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -38,8 +38,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/com/krushi/minisheart/MyWatchFace.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="448" column="59" lean-forward="true" selection-start-line="448" selection-start-column="59" selection-end-line="448" selection-end-column="59" />
+                <state relative-caret-position="324">
+                  <caret line="491" column="13" selection-start-line="491" selection-start-column="13" selection-end-line="491" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -61,7 +61,7 @@
             <entry file="file://$PROJECT_DIR$/src/main/java/com/krushi/minisheart/MyWatchFace.kt">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="238">
-                  <caret line="57" column="33" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+                  <caret line="57" column="78" selection-start-line="57" selection-start-column="78" selection-end-line="57" selection-end-column="78" />
                 </state>
               </provider>
             </entry>
@@ -100,6 +100,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -111,8 +113,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
     </panes>
   </component>
@@ -245,12 +245,12 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="57" selection-start-line="5" selection-start-column="57" selection-end-line="5" selection-end-column="57" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -261,8 +261,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/krushi/minisheart/MyWatchFace.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="448" column="59" lean-forward="true" selection-start-line="448" selection-start-column="59" selection-end-line="448" selection-end-column="59" />
+        <state relative-caret-position="324">
+          <caret line="491" column="13" selection-start-line="491" selection-start-column="13" selection-end-line="491" selection-end-column="13" />
         </state>
       </provider>
     </entry>

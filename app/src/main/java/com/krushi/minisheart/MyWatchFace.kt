@@ -55,7 +55,7 @@ private const val CENTER_GAP_AND_CIRCLE_RADIUS = 17f
 
 private const val SHADOW_RADIUS = 10f
 
-private const val DATE = "2012-09-05"
+private const val DATE = "2012-08-05" //Month starts from 0 in LocalDate class
 private const val TIME = "17:00"
 
 class MyWatchFace : CanvasWatchFaceService() {
@@ -473,10 +473,11 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         private fun getDateDiffString() : String {
             val constDate = LocalDate.parse(DATE)
+            val offset = if (calendar.get(Calendar.HOUR_OF_DAY) >= 17) 0 else -1
             val currDate = LocalDate.of(
                     calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH) + 1, // Month starts from 0
-                    calendar.get(Calendar.DATE)
+                    calendar.get(Calendar.MONTH), // Month starts from 0
+                    calendar.get(Calendar.DATE) + offset
             )
             val currTime = "%02d:%02d".format(
                     calendar.get(Calendar.HOUR_OF_DAY),
@@ -488,8 +489,8 @@ class MyWatchFace : CanvasWatchFaceService() {
                             "${currDate}T${currTime}"
                     ),
                     ChronoUnit.HOURS
-            ) % 24
-            return "%02d-%02d-%02d-%02d".format(period.years, period.months, period.days, hours)
+            )
+            return "%02d-%02d-%02d-%02d".format(period.years, period.months, period.days, hours%24)
         }
 
         private fun drawDurationText(canvas: Canvas) {
