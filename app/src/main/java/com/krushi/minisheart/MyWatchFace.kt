@@ -94,6 +94,7 @@ class MyWatchFace : CanvasWatchFaceService() {
         private lateinit var centerDotPaint: Paint
         private lateinit var batteryPercentPaint: Paint
         private lateinit var durationPaint: Paint
+        private lateinit var messagePaint: Paint
 
         private lateinit var backgroundPaint: Paint
         private lateinit var backgroundBitmap: Bitmap
@@ -214,6 +215,14 @@ class MyWatchFace : CanvasWatchFaceService() {
                 textAlign = Paint.Align.CENTER
                 textSize = 30f
             }
+
+            messagePaint = Paint().apply {
+                color = tickAndCircleColor
+                isAntiAlias = true
+                style = Paint.Style.FILL_AND_STROKE
+                textAlign = Paint.Align.CENTER
+                textSize = 30f
+            }
         }
 
         override fun onPropertiesChanged(properties: Bundle) {
@@ -252,6 +261,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 heartOutlinePaint.color = Color.GRAY
                 centerDotPaint.color = Color.WHITE
                 durationPaint.color = Color.TRANSPARENT
+                messagePaint.color = Color.TRANSPARENT
 
                 hourPaint.isAntiAlias = false
                 minutePaint.isAntiAlias = false
@@ -261,6 +271,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 heartOutlinePaint.isAntiAlias = false
                 centerDotPaint.isAntiAlias = false
                 durationPaint.isAntiAlias = false
+                messagePaint.isAntiAlias = false
 
                 hourPaint.clearShadowLayer()
                 minutePaint.clearShadowLayer()
@@ -277,6 +288,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 heartOutlinePaint.color = watchHandColor
                 centerDotPaint.color = tickAndCircleColor
                 durationPaint.color = tickAndCircleColor
+                messagePaint.color = tickAndCircleColor
 
                 hourPaint.isAntiAlias = true
                 minutePaint.isAntiAlias = true
@@ -286,6 +298,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 heartOutlinePaint.isAntiAlias = true
                 centerDotPaint.isAntiAlias = true
                 durationPaint.isAntiAlias = true
+                messagePaint.isAntiAlias = true
 
                 hourPaint.setShadowLayer(SHADOW_RADIUS, 0f, 0f, watchHandShadowColor)
                 minutePaint.setShadowLayer(SHADOW_RADIUS, 0f, 0f, watchHandShadowColor)
@@ -497,9 +510,25 @@ class MyWatchFace : CanvasWatchFaceService() {
             canvas.drawText(
                 getDateDiffString(),
                 208f,
-                158f,
+                153f,
                 durationPaint
             )
+        }
+
+        private fun drawSpecialMessage(canvas: Canvas) {
+            canvas.drawText(
+                "Happy Birthday Baby" +
+                    String(Character.toChars(0x2764)) +
+                    "!",
+                208f,
+                193f,
+                messagePaint
+            )
+        }
+
+        private  fun drawTextItems(canvas: Canvas) {
+            drawDurationText(canvas)
+            drawSpecialMessage(canvas)
         }
 
         private fun drawWatchFace(canvas: Canvas) {
@@ -518,8 +547,8 @@ class MyWatchFace : CanvasWatchFaceService() {
             // Draw dial markings
             drawDialMarking(canvas)
 
-            // Draw duration text
-            drawDurationText(canvas)
+            // Draw duration text and message
+            drawTextItems(canvas)
 
             // Draw hands
             drawHands(canvas)
