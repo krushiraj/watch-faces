@@ -55,8 +55,8 @@ private const val CENTER_GAP_AND_CIRCLE_RADIUS = 17f
 
 private const val SHADOW_RADIUS = 10f
 
-private const val DATE = "2012-08-05" //Month starts from 0 in LocalDate class
-private const val TIME = "17:00"
+private const val DATE = "2022-12-02" //Month starts from 0 in LocalDate class
+private const val TIME = "14:00"
 
 class MyWatchFace : CanvasWatchFaceService() {
 
@@ -83,11 +83,13 @@ class MyWatchFace : CanvasWatchFaceService() {
         private var watchHandColor: Int = Color.WHITE
         private var watchHandShadowColor: Int = Color.RED
         private var tickAndCircleColor: Int = Color.RED
+        private var fontHeight: Float = 30f
 
         private lateinit var hourPaint: Paint
         private lateinit var minutePaint: Paint
         private lateinit var secondPaint: Paint
         private lateinit var tickAndCirclePaint: Paint
+        private lateinit var tickAndCircleThickPaint: Paint
         private lateinit var heartPaint: Paint
         private lateinit var heartOutlinePaint: Paint
         private lateinit var fillPaint: Paint
@@ -173,6 +175,13 @@ class MyWatchFace : CanvasWatchFaceService() {
                 style = Paint.Style.STROKE
             }
 
+            tickAndCircleThickPaint = Paint().apply {
+                color = tickAndCircleColor
+                strokeWidth = STROKE_WIDTH * 2
+                isAntiAlias = true
+                style = Paint.Style.STROKE
+            }
+
             heartPaint = Paint().apply {
                 color = backgroundColor
                 shader = null
@@ -205,7 +214,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 isAntiAlias = true
                 style = Paint.Style.FILL_AND_STROKE
                 textAlign = Paint.Align.CENTER
-                textSize = 30f
+                textSize = fontHeight * 2 / 3f
             }
 
             durationPaint = Paint().apply {
@@ -213,7 +222,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 isAntiAlias = true
                 style = Paint.Style.FILL_AND_STROKE
                 textAlign = Paint.Align.CENTER
-                textSize = 30f
+                textSize = fontHeight
             }
 
             messagePaint = Paint().apply {
@@ -221,7 +230,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 isAntiAlias = true
                 style = Paint.Style.FILL_AND_STROKE
                 textAlign = Paint.Align.CENTER
-                textSize = 30f
+                textSize = fontHeight
             }
         }
 
@@ -257,6 +266,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 minutePaint.color = Color.WHITE
                 secondPaint.color = Color.TRANSPARENT
                 tickAndCirclePaint.color = Color.WHITE
+                tickAndCircleThickPaint.color = Color.WHITE
                 fillPaint.color = Color.TRANSPARENT
                 heartOutlinePaint.color = Color.GRAY
                 centerDotPaint.color = Color.WHITE
@@ -267,6 +277,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 minutePaint.isAntiAlias = false
                 secondPaint.isAntiAlias = false
                 tickAndCirclePaint.isAntiAlias = false
+                tickAndCircleThickPaint.isAntiAlias = false
                 fillPaint.isAntiAlias = false
                 heartOutlinePaint.isAntiAlias = false
                 centerDotPaint.isAntiAlias = false
@@ -277,6 +288,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 minutePaint.clearShadowLayer()
                 secondPaint.clearShadowLayer()
                 tickAndCirclePaint.clearShadowLayer()
+                tickAndCircleThickPaint.clearShadowLayer()
                 fillPaint.clearShadowLayer()
 
             } else {
@@ -294,6 +306,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 minutePaint.isAntiAlias = true
                 secondPaint.isAntiAlias = true
                 tickAndCirclePaint.isAntiAlias = true
+                tickAndCircleThickPaint.isAntiAlias = true
                 fillPaint.isAntiAlias = true
                 heartOutlinePaint.isAntiAlias = true
                 centerDotPaint.isAntiAlias = true
@@ -355,7 +368,11 @@ class MyWatchFace : CanvasWatchFaceService() {
         }
 
         private fun drawCenterDot(canvas: Canvas) {
-            canvas.drawCircle(208f, 208f, 10f, centerDotPaint)
+            // Draw center dot
+            // get the center of the canvas
+            val centerX = canvas.width / 2f
+            val centerY = canvas.height / 2f
+            canvas.drawCircle(centerX, centerY, 10f, centerDotPaint)
         }
 
         private fun drawDialMarking(canvas: Canvas) {
@@ -364,13 +381,13 @@ class MyWatchFace : CanvasWatchFaceService() {
 
             for (tickIndex in 0..11) {
                 val tickRot = (tickIndex.toDouble() * Math.PI * 2.0 / 12).toFloat()
-                val innerX = Math.sin(tickRot.toDouble()).toFloat() * innerTickRadius
-                val innerY = (-Math.cos(tickRot.toDouble())).toFloat() * innerTickRadius
+                val innerX = Math.sin(tickRot.toDouble()).toFloat() * innerTickRadius + (if (tickIndex == 3) -8f else if (tickIndex == 9) 8f else 0f)
+                val innerY = (-Math.cos(tickRot.toDouble())).toFloat() * innerTickRadius + (if (tickIndex == 0) 8f else if (tickIndex == 6) -8f else 0f)
                 val outerX = Math.sin(tickRot.toDouble()).toFloat() * outerTickRadius
                 val outerY = (-Math.cos(tickRot.toDouble())).toFloat() * outerTickRadius
                 canvas.drawLine(
                         centerX + innerX, centerY + innerY,
-                        centerX + outerX, centerY + outerY, tickAndCirclePaint
+                        centerX + outerX, centerY + outerY, if (tickIndex % 3 == 0) tickAndCircleThickPaint else tickAndCirclePaint
                 )
             }
         }
@@ -413,7 +430,9 @@ class MyWatchFace : CanvasWatchFaceService() {
             canvas.drawPath(path, paint)
 
             if (isOutline) {
-                canvas.drawText(batteryPercent.toString(), 208f, 290f, batteryPercentPaint)
+                val centerX = canvas.width / 2f
+                val centerY = ((canvas.height / 4f) * 3) + (fontHeight / 3)
+                canvas.drawText(batteryPercent.toString(), centerX, centerY, batteryPercentPaint)
             }
         }
 
@@ -426,14 +445,19 @@ class MyWatchFace : CanvasWatchFaceService() {
             //Fill color in heart shape by battery percentage
             fillBatteryColor(canvas)
 
+            val height = canvas.height / 3f
+            val width = canvas.width / 3f
+            val centerX = (canvas.width / 2f) - (width / 2f)
+            val centerY = ((canvas.height / 4f) * 3) - (height / 2f)
+
             //Draw heart shape
             drawHeart(
                     canvas,
                     heartPaint,
-                    150f,
-                    150f,
-                    133f,
-                    208f,
+                    height,
+                    width - 10f,
+                    centerX + 5f,
+                    centerY + 5f,
                     false
             )
 
@@ -441,10 +465,10 @@ class MyWatchFace : CanvasWatchFaceService() {
             drawHeart(
                     canvas,
                     heartOutlinePaint,
-                    90f,
-                    100f,
-                    158f,
-                    233f,
+                    height / 2,
+                    width / 2,
+                    centerX + (width / 4),
+                    centerY + (height / 4),
                     true
             )
         }
@@ -507,21 +531,24 @@ class MyWatchFace : CanvasWatchFaceService() {
         }
 
         private fun drawDurationText(canvas: Canvas) {
+            val centerX = canvas.width / 2f
+            val centerY = (canvas.height / 3f) - (fontHeight / 2)
             canvas.drawText(
                 getDateDiffString(),
-                208f,
-                153f,
+                centerX,
+                centerY,
                 durationPaint
             )
         }
 
         private fun drawSpecialMessage(canvas: Canvas) {
+            val centerX = canvas.width / 2f
+            val centerY = canvas.height / 3f + (fontHeight / 2)
             canvas.drawText(
-                "Happy Birthday Baby" +
-                    String(Character.toChars(0x2764)) +
-                    "!",
-                208f,
-                193f,
+                "SASHI" +
+                    String(Character.toChars(0x2764)),
+                centerX,
+                centerY,
                 messagePaint
             )
         }
